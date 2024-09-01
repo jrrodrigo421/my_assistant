@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assistente Flutter</title>
+    <!-- Importando Tailwind CSS diretamente via CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-black font-sans leading-normal tracking-normal">
+    <div class="container mx-auto mt-10 p-5">
+      <div class="bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-5">Assistente Flutter</h1>
+
+        <form action="/" method="post">
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="path"
+            >
+              Caminho da Pasta:
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="path"
+              name="path"
+              type="text"
+              placeholder="Insira o caminho completo da pasta"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Analisar Projeto
+            </button>
+          </div>
+        </form>
+
+        {% if error_message %}
+        <div class="mt-10">
+          <h2 class="text-xl font-semibold mb-3 text-red-600">Erro</h2>
+          <p>{{ error_message }}</p>
+        </div>
+        {% endif %} {% if analisado %}
+        <div class="mt-10">
+          <h2 class="text-xl font-semibold mb-3">Análise Completa</h2>
+          <p>Todos os arquivos foram analisados com sucesso.</p>
+          <p class="mt-4 text-green-600">
+            Você pode agora fazer perguntas sobre o projeto.
+          </p>
+
+          <form action="/" method="post" class="mt-5">
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="question"
+              >
+                Pergunta:
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="question"
+                name="question"
+                type="text"
+                placeholder="Faça uma pergunta sobre o Flutter ou o projeto"
+              />
+            </div>
+            <div class="flex items-center justify-between">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Perguntar
+              </button>
+            </div>
+          </form>
+
+          {% if resposta %}
+          <div class="mt-5 p-4 bg-gray-100 rounded-lg">
+            <h3 class="text-lg font-bold">Resposta do Assistente:</h3>
+            <p>{{ resposta }}</p>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %} {% if logs %}
+        <div class="mt-10">
+          <h2 class="text-xl font-semibold mb-3">Logs de Análise</h2>
+          <div class="p-4 bg-gray-100 rounded-lg max-h-60 overflow-y-auto">
+            <ul class="list-disc list-inside">
+              {% for log in logs %}
+              <li>{{ log }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
